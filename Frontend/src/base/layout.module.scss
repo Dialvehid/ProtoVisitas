@@ -1,0 +1,15 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: clamp(1rem, 1vw + 0.5rem, 2rem) clamp(1rem, 2vw, 2.5rem);
+    background: var(--color-bg);
+}

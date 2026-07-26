@@ -1,0 +1,2 @@
+"""App vale como paquete"""
+

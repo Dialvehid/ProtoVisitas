@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  db:
+    build:
+      context: ./DB
+    container_name: protovisitas_db
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${MYSQL_DATABASE}
+      MARIADB_USER: ${MYSQL_USER}
+      MARIADB_PASSWORD: ${MYSQL_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./Backend
+    container_name: protovisitas_backend
+    restart: unless-stopped
+    environment:
+      PROTOVISITAS_DATABASE_URL: ${PROTOVISITAS_DATABASE_URL}
+      PROTOVISITAS_DB_ECHO: false
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./Frontend
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+        VITE_GOOGLE_MAPS_API_KEY: ${VITE_GOOGLE_MAPS_API_KEY:-}
+    container_name: protovisitas_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  db_data:
+    driver: local

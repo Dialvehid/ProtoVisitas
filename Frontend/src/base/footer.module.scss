@@ -1,0 +1,29 @@
+.footer {
+    background-color: #6b6b76; // gris secundario
+    color: #ffffff; // texto blanco
+    text-align: center;
+    padding: 14px 0;
+    font-size: 14px;
+    position: fixed;
+    
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    z-index: 999;
+
+
+    a {
+        color: #00bfa6; // primario
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    p{
+        margin: 0 0 1em;
+        color: #ffffff;
+    }
+}

@@ -1,0 +1,219 @@
+/* Paleta */
+$primary: #cfcfcf; // aqua verdoso
+$secondary: #6b6b76; // gris
+$bg: #a9acaa; // fondo
+$bg-elev: #b1b2b3; // leve elevación
+$bg-elev-txt: #ffffff;
+$shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* 3 zonas separadas */
+    gap: 16px;
+    padding: 12px 20px;
+    background: $primary;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* IZQUIERDA: logo + marca */
+.left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logoLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.35);
+    }
+
+    &:focus-visible {
+        outline: none;
+        border-color: rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+    }
+}
+
+.logoImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    object-fit: cover;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.brand {
+    font-size: 18px;
+    font-weight: 800;
+    color: #222;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* CENTRO: lista de menús */
+.center {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* DERECHA: usuario */
+.right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Dropdown genérico */
+.dropdown {
+    position: relative;
+}
+
+.dropdownTrigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #222;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    outline: none;
+
+    &:hover {
+        background: $bg-elev;
+        border-color: $bg-elev
+    }
+
+    &:focus-visible {
+        border-color: $primary;
+        box-shadow: $primary
+    }
+}
+
+.caret {
+    font-size: 12px;
+    color: $secondary;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 180px;
+    background: $bg;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    box-shadow: $shadow;
+    padding: 8px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.12s ease, transform 0.12s ease;
+    z-index: 20;
+}
+
+.dropdownMenu.right {
+    left: auto;
+    right: 0;
+}
+
+.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.menuItem {
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    color: #222;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+        background: $bg-elev;
+        /* primario tenue */
+        color: $bg-elev-txt
+    }
+}
+
+.menuItem[aria-disabled="true"] {
+    cursor: default;
+}
+
+.sep {
+    border: 0;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.08);
+    margin: 6px 0;
+}
+
+/* Trigger de usuario */
+.userTrigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    object-fit: cover;
+    border: 2px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.userName {
+    font-weight: 700;
+    color: #222;
+}
+
+/* Responsivo básico */
+@media (max-width: 900px) {
+    .center {
+        gap: 8px;
+    }
+
+    .dropdownTrigger {
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 700px) {
+    .center {
+        display: none;
+    }
+
+    /* oculta menús centrales en móviles (simple) */
+}

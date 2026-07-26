@@ -1,0 +1,138 @@
+// Contenedor principal
+.pfCard {
+  width: 360px; // ancho fijo
+  background: #201d1d; // fondo blanco
+  border-radius: 22px; // esquinas redondeadas
+  overflow: hidden; // oculta contenido que sobresalga
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35); // sombra para profundidad
+
+  &:hover {
+    filter: drop-shadow(0 0 2em #646cffaa);
+  }
+}
+
+// ======== PORTADA ========
+.cover {
+  position: relative; // para posicionar hijos
+  height: 160px; // altura de la portada
+  background-size: cover; // imagen cubre todo el espacio
+  background-position: center; // centrada
+  background-image: radial-gradient(1200px 400px at 50% -20%,
+      #611579 0%,
+      #0d122b 60%,
+      #0a0c1a 100%);
+}
+
+// ======== INSIGNIA PRO ========
+.badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: #111; // negro
+  color: #fff; // blanco
+  font-weight: 800;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+// ======== AVATAR ========
+.avatar {
+  position: absolute;
+  left: 50%;
+  bottom: -46px; // sobresale de la portada
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 999px; // círculo
+  object-fit: cover;
+  border: 6px solid #155479;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  background: #181717;
+}
+
+// ======== CUERPO ========
+.body {
+  padding: 60px 26px 26px; // espacio interno
+  text-align: center;
+  background: #1f1e1e;
+}
+
+// ======== NOMBRE ========
+.name {
+  margin: 0 0 4px;
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #b4a239;
+}
+
+// ======== HANDLE ========
+.handle {
+  margin: 0 0 18px;
+  color: #7c7c88;
+  font-weight: 600;
+}
+
+// ======== BIO ========
+.bio {
+  color: #d0d0d8;
+  line-height: 1.5;
+  font-size: 16px;
+
+  p {
+    margin: 6px 0;
+  }
+}
+
+// ======== ACCIONES ========
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 26px;
+}
+
+// ======== BOTONES ========
+.btn {
+  appearance: none;
+  border: 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.2s ease,
+    background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.btnSolid {
+  background: #6f2dbd;
+  color: #fff;
+
+  &:hover {
+    background: #5a23a0;
+    transform: translateY(-1px);
+  }
+}
+
+.btnOutline {
+  background: #6f2dbd;
+  color: #fff;
+
+  &:hover {
+    background: #5a23a0;
+    transform: translateY(-1px);
+  }
+}
+
+// ======== RESPONSIVE ========
+@media (max-width: 420px) {
+  .pfCard {
+    width: 100%;
+    border-radius: 0;
+  }
+}

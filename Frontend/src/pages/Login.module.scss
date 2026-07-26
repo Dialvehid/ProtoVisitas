@@ -1,0 +1,120 @@
+.loginPage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 12% 80%, rgba(255, 183, 3, 0.6) 0, rgba(255, 183, 3, 0) 55%),
+        radial-gradient(circle at 78% 22%, rgba(96, 165, 250, 0.35) 0, rgba(96, 165, 250, 0) 45%),
+        radial-gradient(circle at 25% 25%, rgba(244, 114, 182, 0.4) 0, rgba(244, 114, 182, 0) 35%),
+        linear-gradient(135deg, #030314 0%, #101735 42%, #1c0f3b 100%);
+    color: #f8fafc;
+    isolation: isolate;
+}
+
+.loginPage::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(2.5px 2.5px at 20% 30%, rgba(248, 250, 252, 0.6) 0, rgba(248, 250, 252, 0) 60%),
+        radial-gradient(1px 1px at 80% 25%, rgba(248, 250, 252, 0.55) 0, rgba(248, 250, 252, 0) 60%),
+        radial-gradient(1.5px 1.5px at 60% 70%, rgba(248, 250, 252, 0.4) 0, rgba(248, 250, 252, 0) 55%),
+        radial-gradient(1.2px 1.2px at 30% 60%, rgba(248, 250, 252, 0.45) 0, rgba(248, 250, 252, 0) 55%),
+        radial-gradient(1px 1px at 50% 40%, rgba(248, 250, 252, 0.3) 0, rgba(248, 250, 252, 0) 55%),
+        radial-gradient(70px 70px at 105% -5%, rgba(252, 211, 77, 0.45) 0, rgba(252, 211, 77, 0) 60%);
+    transform: rotate(12deg);
+    z-index: -2;
+    opacity: 0.85;
+}
+
+.loginPage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 85%, rgba(251, 191, 36, 0.35) 0, rgba(251, 191, 36, 0) 60%),
+        radial-gradient(circle at 85% 40%, rgba(129, 140, 248, 0.25) 0, rgba(129, 140, 248, 0)55%);
+    mix-blend-mode: lighten;
+    z-index: -1;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: min(360px, 100%);
+    padding: 2.5rem 2.25rem;
+    border-radius: 18px;
+    background: rgba(15, 23, 42, 0.72);
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.loginForm h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+}
+
+.loginForm label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+}
+
+.loginForm input {
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(148, 163, 184, 0.45);
+    font-size: 1rem;
+    color: #0f172a;
+    background: rgba(255, 255, 255, 0.95);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.loginForm input:focus {
+    outline: none;
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+.loginForm button {
+    margin-top: 0.25rem;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(120deg, #2563eb 0%, #6d28d9 100%);
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.loginForm button:disabled {
+    background: linear-gradient(120deg, rgba(59, 130, 246, 0.7), rgba(109, 40, 217, 0.65));
+    cursor: not-allowed;
+    filter: grayscale(0.2);
+}
+
+.loginForm button:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 15px 25px -10px rgba(37, 99, 235, 0.6);
+}
+
+.loginError {
+    margin: 0;
+    color: #f87171;
+    font-size: 0.9rem;
+    text-align: center;
+}
