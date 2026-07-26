@@ -3,6 +3,10 @@
 .idea/
 .vscode/
 
+# Local AI agent workspaces
+.agents/
+.codex/
+
 # Python
 __pycache__/
 *.py[cod]
@@ -29,7 +33,6 @@ coverage/
 .env
 .env.*
 !.env.example
-.env.*.local
 
 # Docker
 db_data/
@@ -37,7 +40,3 @@ db_data/
 
 # Private/local documentation
 Document/
-
-# Local editor configuration
-.idea/
-.vscode/

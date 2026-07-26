@@ -46,15 +46,3 @@ docker compose exec backend \
 
 La contraseña se solicita de forma interactiva y se almacena con PBKDF2-SHA256,
 salt aleatorio y 600 000 iteraciones.
-
-## Seguridad y privacidad
-
-- Los archivos `.env` están ignorados; solo se publica `.env.example`.
-- No se incluyen documentos académicos, datos personales ni credenciales.
-- La clave de Google Maps usada en el navegador debe restringirse en Google Cloud.
-- El SQL público crea únicamente el esquema y catálogos indispensables.
-
-Este proyecto es un prototipo demostrativo. Antes de usarlo en producción se
-deben implementar sesiones o tokens de acceso, autorización independiente del
-cliente, migraciones de base de datos, pruebas automatizadas y una política CORS
-limitada a dominios conocidos.
