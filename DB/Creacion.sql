@@ -1,10 +1,9 @@
 -- ============================================================================
--- SKYNET - Estructura + Datos de Prueba
+-- PROTOVISITAS - Estructura + Datos Iniciales
 -- ============================================================================
 
-DROP DATABASE IF EXISTS skynet;
-CREATE DATABASE skynet;
-USE skynet;
+-- La imagen oficial de MariaDB crea y selecciona MARIADB_DATABASE antes de
+-- ejecutar los scripts ubicados en /docker-entrypoint-initdb.d.
 
 -- ===================================
 -- ROLES Y PERMISOS

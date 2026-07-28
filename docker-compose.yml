@@ -1,9 +1,8 @@
-version: "3.9"
-
 services:
   db:
     build:
       context: ./DB
+    runtime: runc
     container_name: protovisitas_db
     restart: unless-stopped
     environment:
@@ -13,19 +12,39 @@ services:
       MARIADB_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
 
   backend:
     build:
       context: ./Backend
+    runtime: runc
     container_name: protovisitas_backend
     restart: unless-stopped
     environment:
       PROTOVISITAS_DATABASE_URL: ${PROTOVISITAS_DATABASE_URL}
-      PROTOVISITAS_DB_ECHO: false
+      PROTOVISITAS_DB_ECHO: ${PROTOVISITAS_DB_ECHO:-false}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     ports:
       - "8000:8000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2)",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   frontend:
     build:
@@ -33,12 +52,21 @@ services:
       args:
         VITE_API_URL: ${VITE_API_URL}
         VITE_GOOGLE_MAPS_API_KEY: ${VITE_GOOGLE_MAPS_API_KEY:-}
+    runtime: runc
     container_name: protovisitas_frontend
     restart: unless-stopped
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     ports:
       - "80:80"
+    healthcheck:
+      test:
+        ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
 
 volumes:
   db_data:

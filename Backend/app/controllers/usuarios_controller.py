@@ -117,7 +117,39 @@ async def crear_usuario(payload: UsuarioAdminCreate, usuario_id: int = Query(...
         await session.rollback()
         raise HTTPException(409, "El correo ya está en uso.")
 
-    return await _get_usuario(session, u.id, True).then(_usuario_admin_response) if False else _usuario_admin_response(await _get_usuario(session, u.id, True))
+    return _usuario_admin_response(await _get_usuario(session, u.id, True))
+
+
+@router.put("/perfil", response_model=UserInfo)
+async def actualizar_perfil(
+    payload: UsuarioPerfilUpdateRequest,
+    usuario_id: int = Query(..., ge=1),
+    session: AsyncSession = Depends(get_session),
+):
+    u = await _get_usuario(session, usuario_id, True)
+    cambios = payload.model_dump(exclude_unset=True)
+
+    if "nombre" in cambios:
+        u.nombre = cambios["nombre"]
+    if "email" in cambios:
+        u.email = cambios["email"]
+    if cambios.get("nueva_contrasena"):
+        u.password_hash = get_password_hash(cambios["nueva_contrasena"])
+
+    try:
+        await session.commit()
+    except IntegrityError:
+        await session.rollback()
+        raise HTTPException(409, "El correo ya está en uso.")
+
+    await session.refresh(u)
+    return UserInfo(
+        id=u.id,
+        nombre=u.nombre,
+        email=u.email,
+        rol=u.rol.nombre if u.rol else "",
+        supervisor_id=u.supervisor_id,
+    )
 
 
 @router.put("/{target_usuario_id}", response_model=UsuarioAdminResponse)
@@ -151,7 +183,9 @@ async def actualizar_usuario(
         await session.rollback()
         raise HTTPException(409, "El correo ya está en uso.")
 
-    return await _get_usuario(session, target_usuario_id, True).then(_usuario_admin_response) if False else _usuario_admin_response(await _get_usuario(session, target_usuario_id, True))
+    return _usuario_admin_response(
+        await _get_usuario(session, target_usuario_id, True)
+    )
 
 
 @router.post("/{target_usuario_id}/reset-password", response_model=UsuarioAdminResponse)
@@ -164,35 +198,3 @@ async def reiniciar_contrasena(
     u.password_hash = get_password_hash(payload.password)
     await session.commit()
     return _usuario_admin_response(u)
-
-
-@router.put("/perfil", response_model=UserInfo)
-async def actualizar_perfil(
-    payload: UsuarioPerfilUpdateRequest,
-    usuario_id: int = Query(..., ge=1),
-    session: AsyncSession = Depends(get_session),
-):
-    u = await _get_usuario(session, usuario_id, True)
-    cambios = payload.model_dump(exclude_unset=True)
-
-    if "nombre" in cambios:
-        u.nombre = cambios["nombre"]
-    if "email" in cambios:
-        u.email = cambios["email"]
-    if cambios.get("nueva_contrasena"):
-        u.password_hash = get_password_hash(cambios["nueva_contrasena"])
-
-    try:
-        await session.commit()
-    except IntegrityError:
-        await session.rollback()
-        raise HTTPException(409, "El correo ya está en uso.")
-
-    await session.refresh(u)
-    return UserInfo(
-        id=u.id,
-        nombre=u.nombre,
-        email=u.email,
-        rol=u.rol.nombre if u.rol else "",
-        supervisor_id=u.supervisor_id,
-    )

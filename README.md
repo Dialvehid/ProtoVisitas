@@ -41,7 +41,7 @@ Después de iniciar MariaDB y el backend, crea el administrador localmente:
 
 ```bash
 docker compose exec backend \
-  python -m scripts.create_admin --name "Administrador local" --email "admin@example.test"
+  python -m scripts.create_admin --name "Administrador local" --email "admin@example.com"
 ```
 
 La contraseña se solicita de forma interactiva y se almacena con PBKDF2-SHA256,
